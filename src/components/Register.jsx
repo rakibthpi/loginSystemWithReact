@@ -4,8 +4,8 @@ import { AuthContext } from '../contexts/UseContext';
 
 const Register = () => {
 
-    const { createUser } = useContext(AuthContext);
-    console.log(createUser);
+    const { createUser, googleAuthPopup } = useContext(AuthContext);
+    console.log(googleAuthPopup);
 
     const handleRegister = (event) => {
         event.preventDefault();
@@ -26,6 +26,16 @@ const Register = () => {
             })
 
     }
+    const handleGoogleSubmit = () => {
+        googleAuthPopup()
+            .then((result) => {
+                console.log(result)
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+
     return (
         <div className='form_area'>
             <div className='container'>
@@ -54,8 +64,11 @@ const Register = () => {
                             <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Check me out" />
                             </Form.Group>
-                            <Button variant="primary" type="submit">
+                            <Button className='me-2' variant="primary" type="submit">
                                 Submit
+                            </Button>
+                            <Button onClick={handleGoogleSubmit} className='me-2' variant="primary" type="submit">
+                                Google
                             </Button>
                         </Form>
                     </Col>
